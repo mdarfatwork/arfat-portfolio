@@ -9,7 +9,7 @@ export function Skills() {
         <FadeIn>
           <SectionHeader
             title="Technical Expertise"
-            subtitle="A comprehensive overview of the core technologies, powerful tools, and versatile platforms I use to architect modern, scalable digital solutions."
+            subtitle="A collection of technologies and tools I use to build scalable SaaS products, AI-powered applications, and modern full-stack solutions."
           />
         </FadeIn>
 

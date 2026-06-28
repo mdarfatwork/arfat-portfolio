@@ -11,15 +11,15 @@ export const profile = {
     line2: "AI Engineer",
   },
   heroDescription:
-    "I build scalable SaaS products and AI-powered applications using modern full-stack technologies, helping businesses turn ideas into production-ready software.",
+    "I build scalable SaaS products and AI-powered applications using modern full-stack technologies, from idea to production-ready software.",
   aboutIntro:
-    "A self-taught Full-Stack Developer focused on Next.js, TypeScript, and AI integrations.",
+    "A Full Stack AI Engineer building scalable SaaS products, AI-powered applications, and modern web experiences.",
   aboutBio:
-    "My journey in tech has equipped me with a diverse skill set spanning modern frontend frameworks like React and Next.js to robust backend technologies including Node.js, PostgreSQL, Drizzle, and Prisma. I enjoy solving product-focused problems, writing clean maintainable code, and collaborating in team environments that push me to grow.",
+    "I build production-ready software using modern full-stack technologies including Next.js, TypeScript, Node.js, PostgreSQL, and AI tools. My experience includes building SaaS products, AI-powered applications, and complex business platforms from idea to deployment. I enjoy solving real-world problems, owning features end-to-end, and creating products that deliver measurable value.",
   philosophy:
     "My development philosophy centers around building products that solve real-world problems and deliver measurable business value.",
   philosophyDetail:
-    "Whether I'm building an AI-powered SaaS tool, a full-stack web application, or automating workflows with n8n, my goal is always to ship production-ready software that users love and businesses rely on.",
+    "Whether I'm building an AI-powered SaaS product, a full-stack application, or automating business workflows, my focus is always on creating scalable software that solves real problems.",
   stats: [
     { value: "1.5+", label: "Years Experience" },
     { value: "8+", label: "Projects" },
@@ -30,22 +30,22 @@ export const profile = {
     {
       title: "Problem Solver",
       description:
-        "Tackling complex product and engineering challenges with strategic thinking.",
+        "Solving complex engineering challenges with practical and scalable solutions.",
     },
     {
       title: "Team Player",
       description:
-        "Collaborating seamlessly across frontend, backend, and production workflows.",
+        "Collaborating with developers, designers, and teams to ship reliable production-ready software.",
     },
     {
       title: "Fast Learner",
       description:
-        "Quickly adapting to new frameworks, AI tools, and deployment practices.",
+        "Quickly adapting to new technologies, AI tools, and modern development practices.",
     },
     {
       title: "Solution Builder",
       description:
-        "Creating scalable SaaS products and full-stack applications end to end.",
+        "Building complete SaaS products and applications from concept to production.",
     },
   ],
   navLinks: [

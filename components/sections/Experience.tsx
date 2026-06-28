@@ -10,7 +10,7 @@ export function Experience() {
         <FadeIn>
           <SectionHeader
             title="Professional Experience"
-            subtitle="My journey working with diverse teams, architecting systems, and delivering high-impact digital solutions."
+            subtitle="Building production-ready applications, collaborating with teams, and delivering scalable software solutions across SaaS and AI-powered products."
           />
         </FadeIn>
 

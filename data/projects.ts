@@ -21,7 +21,7 @@ export const projects: Project[] = [
     id: "welzo-ai",
     title: "Welzo AI",
     description:
-      "AI-powered health and wellness platform with chatbot integrations and intelligent automation for the Welzo ecosystem.",
+      "AI-powered health and wellness platform with conversational AI, chatbot integrations, and intelligent automation workflows.",
     tags: ["Noorisys", "Client Work", "AI", "Live Project"],
     live: true,
     liveUrl: "https://welzo.ai/",
@@ -29,20 +29,21 @@ export const projects: Project[] = [
     initials: "WA",
     context: "Noorisys Technologies",
     details:
-      "Built while working at Noorisys — Welzo AI is a live health and wellness platform where I contributed AI chatbot integrations, n8n workflow automation, and frontend implementation. The work focused on intelligent automation across the Welzo ecosystem, improving user engagement through conversational AI and streamlining internal operations with production-ready integrations.",
+      "Built while working at Noorisys — Welzo AI is a live health and wellness platform focused on improving user experience through AI-powered interactions. I contributed to AI chatbot integrations, n8n automation workflows, and frontend implementation, helping build scalable AI-driven experiences for the platform.",
     features: [
-      "AI chatbot integrations for health & wellness",
-      "n8n workflow automation pipelines",
-      "Production frontend implementation",
-      "Cross-team collaboration on live platform",
+      "AI chatbot integrations",
+      "Health & wellness conversational workflows",
+      "n8n automation pipelines",
+      "Production frontend development",
     ],
-    technologies: ["Next.js", "TypeScript", "n8n", "AI Integrations", "React"],
+    technologies: ["Next.js", "TypeScript", "React", "n8n", "AI Integrations"],
   },
+
   {
     id: "e-officine",
     title: "E-Officine",
     description:
-      "A premium healthcare recruitment platform with polished frontend experiences and scalable platform functionality.",
+      "Healthcare recruitment platform delivering a premium user experience with scalable frontend architecture.",
     tags: ["Noorisys", "Client Work", "Live Project"],
     live: true,
     liveUrl: "https://e-officine.com/",
@@ -50,20 +51,21 @@ export const projects: Project[] = [
     initials: "EO",
     context: "Noorisys Technologies",
     details:
-      "Contributed to E-Officine while at Noorisys — a premium healthcare recruitment platform serving production users. I built and refined responsive frontend experiences, improved UI polish across key flows, and helped deliver scalable platform functionality for a healthcare client with high standards for design and reliability.",
+      "Developed while working at Noorisys — E-Officine is a production healthcare recruitment platform. I contributed to responsive frontend development, UI improvements, and scalable application features while ensuring a polished experience for real users.",
     features: [
-      "Premium responsive healthcare UI",
-      "Recruitment platform workflows",
-      "Scalable frontend architecture",
-      "Production-ready client delivery",
+      "Healthcare recruitment workflows",
+      "Responsive production UI",
+      "Frontend architecture improvements",
+      "Client-focused development",
     ],
     technologies: ["Next.js", "TypeScript", "React", "Tailwind CSS"],
   },
+
   {
     id: "ab-sidy",
     title: "AB Sidy",
     description:
-      "A car auction and management platform with exchange workflows, invoice handling, and production-ready business logic.",
+      "Car auction and management platform with vehicle exchange workflows, invoice systems, and business operations.",
     tags: ["Noorisys", "Client Work", "Live Project"],
     live: true,
     liveUrl: "http://car.techtrial.work/",
@@ -71,20 +73,21 @@ export const projects: Project[] = [
     initials: "AB",
     context: "Noorisys Technologies",
     details:
-      "Delivered as part of my role at Noorisys — AB Sidy is a Car24-like car auction and management platform. I built exchange car workflows, invoice handling features, and core frontend modules while fixing production bugs in a live environment, ensuring business-critical flows remained stable for daily operations.",
+      "Built as part of my role at Noorisys — AB Sidy is a Car24-like automotive management platform. I developed major platform workflows including vehicle exchange management, invoice handling, and core frontend modules while maintaining production stability.",
     features: [
-      "Car auction & exchange workflows",
+      "Car auction workflows",
+      "Vehicle exchange management",
       "Invoice handling system",
-      "Production bug fixes & features",
-      "Car management platform UI",
+      "Production feature development",
     ],
     technologies: ["Next.js", "TypeScript", "React", "REST APIs"],
   },
+
   {
     id: "noorisys",
     title: "Noorisys",
     description:
-      "The new corporate website for Noorisys Technologies — a startup product engineering partner helping founders build scalable SaaS MVPs.",
+      "Corporate website for a SaaS engineering company helping startups build scalable digital products.",
     tags: ["Noorisys", "Frontend", "Live Project"],
     live: true,
     liveUrl: "https://noorisys.com/",
@@ -92,12 +95,12 @@ export const projects: Project[] = [
     initials: "NS",
     context: "Noorisys Technologies",
     details:
-      "Led frontend development for the redesigned Noorisys corporate website — a premium marketing platform showcasing the Founder Launch Programme™, MVP to Scale Programme, case studies, client testimonials, and founder application flows. Built responsive, conversion-focused UI for a global SaaS engineering brand serving 500+ startups across 25+ countries.",
+      "Led frontend development for the redesigned Noorisys corporate website. Built a modern marketing platform with responsive layouts, animations, case studies, and conversion-focused experiences for a global SaaS engineering brand.",
     features: [
-      "Redesigned corporate marketing site",
-      "Founder programme & case study pages",
-      "Conversion-focused responsive UI",
-      "Framer Motion interactions",
+      "Modern corporate website",
+      "Responsive marketing pages",
+      "Interactive UI animations",
+      "Conversion-focused design",
     ],
     technologies: [
       "Next.js",
@@ -107,81 +110,98 @@ export const projects: Project[] = [
       "Framer Motion",
     ],
   },
+
   {
     id: "quickfolio",
     title: "QuickFolio",
     description:
-      "A developer-focused portfolio builder designed for quickly generating and showcasing personal portfolio websites.",
+      "Developer-focused portfolio builder for quickly creating and showcasing personal websites.",
     tags: ["Next.js", "Full Stack", "Live Project"],
     live: true,
     liveUrl: "https://quickfolio-arfat.vercel.app/",
     githubUrl: "https://github.com/mdarfatwork/QuickFolio",
     image: "/assets/projects/quickfolio.webp",
     details:
-      "QuickFolio is a dynamic portfolio generation tool built for developers who want to showcase their work quickly. It features a responsive modern UI, Next.js App Router architecture, Tailwind CSS styling, and optimized performance — making it easy to go from idea to a polished personal site in minutes.",
+      "QuickFolio is a portfolio generation platform built for developers. It provides a fast way to create modern portfolio websites with a responsive interface, optimized performance, and a scalable Next.js architecture.",
     features: [
-      "Dynamic portfolio generation",
+      "Portfolio generation workflow",
       "Next.js App Router architecture",
-      "Fast, developer-focused UX",
-      "Optimized performance",
+      "Modern responsive UI",
+      "Performance-focused development",
     ],
     technologies: ["Next.js", "TypeScript", "Tailwind CSS", "React"],
   },
+
   {
     id: "dm-genie",
     title: "DM Genie",
     description:
-      "AI-powered outreach assistant that generates personalized LinkedIn messages using resume and job description context.",
+      "AI-powered LinkedIn outreach assistant that generates personalized messages using resume and job context.",
     tags: ["AI", "Next.js", "Live Project"],
     live: true,
     liveUrl: "https://dmgenie-arfat.vercel.app/",
     githubUrl: "https://github.com/mdarfatwork/dmgenie",
     image: "/assets/projects/dm-genie.webp",
     details:
-      "DM Genie is an AI-powered LinkedIn outreach assistant that parses resumes and job descriptions to generate personalized connection messages. Built with Next.js, Clerk authentication, Neon PostgreSQL, Drizzle ORM, and Google Gemini — it streamlines job search outreach with a modern, responsive interface.",
+      "DM Genie is an AI SaaS application that helps users create personalized LinkedIn outreach messages. It analyzes resume and job descriptions to generate relevant connection messages using AI workflows.",
     features: [
-      "AI-powered LinkedIn DM generation",
-      "Resume & job description parsing",
-      "Personalized outreach workflows",
-      "Clerk auth with Neon database",
+      "AI message generation",
+      "Resume and job description analysis",
+      "Personalized outreach workflow",
+      "Authentication and database system",
     ],
-    technologies: ["Next.js", "TypeScript", "Clerk", "Neon", "Drizzle", "Gemini"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Clerk",
+      "Neon",
+      "Drizzle",
+      "Gemini",
+    ],
   },
+
   {
     id: "lettergenie",
     title: "LetterGenie",
     description:
-      "An AI-based cover letter generator that creates professional personalized cover letters within seconds.",
+      "AI-powered cover letter generator creating personalized professional documents instantly.",
     tags: ["AI", "SaaS", "Live Project"],
     live: true,
     liveUrl: "https://lettergenie.vercel.app/",
     githubUrl: "https://github.com/mdarfatwork/lettergenie",
     image: "/assets/projects/lettergenie.webp",
     details:
-      "LetterGenie is an AI cover letter generator that creates professional, personalized cover letters in seconds. It features a fast minimal UX, AI-generated content workflows, and PostgreSQL-backed user management using Next.js 15, Clerk authentication, and Google Gemini for intelligent document generation.",
+      "LetterGenie is an AI document generation SaaS tool that creates personalized cover letters using user information and AI workflows. Built with modern authentication, database systems, and AI integration.",
     features: [
       "AI cover letter generation",
-      "Fast minimal user experience",
-      "PostgreSQL user management",
-      "Clerk authentication",
+      "Personalized document creation",
+      "User authentication",
+      "Database-backed SaaS workflow",
     ],
-    technologies: ["Next.js", "TypeScript", "Clerk", "PostgreSQL", "Gemini"],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "Clerk",
+      "PostgreSQL",
+      "Gemini",
+    ],
   },
+
   {
     id: "coopay",
     title: "Coopay",
     description:
-      "Expense-sharing and debt-management platform with advanced payment tracking and reminder workflows.",
+      "Expense-sharing SaaS platform with split payments, debt management, and financial tracking workflows.",
     tags: ["Full Stack", "Private Project"],
     initials: "CP",
     context: "Freelance (Luis)",
     details:
-      "Coopay is a SaaS-focused expense-sharing platform developed as freelance work. It supports shared expense tracking, debt splitting, reminder scheduling, recurring expenses, custom splits, and group reports — built with Drizzle ORM, PostgreSQL, BetterAuth, UploadThing, and Gemini integrations for a complete full-stack experience.",
+      "Coopay is a freelance SaaS application built for managing shared expenses. It includes custom split logic, recurring expenses, debt settlement, reminders, file uploads, and AI-powered transaction extraction.",
     features: [
-      "Shared expense tracking",
-      "Debt splitting & reminders",
-      "Recurring expenses & custom splits",
-      "Group reports & analytics",
+      "Expense sharing system",
+      "Debt settlement workflows",
+      "Recurring expenses",
+      "AI transaction extraction",
     ],
     technologies: [
       "Next.js",

@@ -1,34 +1,34 @@
 export const services = [
   {
-    title: "SaaS Development",
+    title: "AI SaaS Development",
     description:
-      "Building scalable multi-tenant applications with authentication, dashboards, and production-ready deployment on Vercel.",
+      "Building AI-powered SaaS products with LLM integrations, RAG pipelines, automation workflows, and scalable full-stack architecture.",
     tags: [
-      "Multi-tenant Apps",
-      "Auth Systems",
-      "Custom Dashboards",
-      "Vercel Deployment",
-    ],
-  },
-  {
-    title: "AI-Powered Applications",
-    description:
-      "Integrating Google Gemini and OpenAI APIs to build intelligent tools for content generation, automation, and productivity.",
-    tags: [
-      "Google Gemini",
-      "OpenAI API",
-      "Content Generation",
+      "AI Integrations",
+      "RAG Systems",
+      "Vector Databases",
       "Workflow Automation",
     ],
   },
   {
-    title: "Full-Stack Web Applications",
+    title: "Full-Stack Product Development",
     description:
-      "End-to-end development with Next.js, TypeScript, PostgreSQL, and modern ORMs like Drizzle and Prisma.",
+      "Building complete web applications from frontend to backend with modern architecture, authentication, databases, and production deployment.",
+    tags: [
+      "Next.js Applications",
+      "Backend APIs",
+      "Database Design",
+      "Production Deployment",
+    ],
+  },
+  {
+    title: "SaaS MVP Development",
+    description:
+      "Helping startups turn ideas into production-ready MVPs with scalable architecture and user-focused experiences.",
     bullets: [
-      "Next.js App Router",
-      "PostgreSQL & Drizzle",
-      "REST API Design",
+      "Next.js & TypeScript",
+      "PostgreSQL & Modern ORMs",
+      "Authentication & APIs",
     ],
   },
 ] as const;
