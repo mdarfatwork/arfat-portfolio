@@ -46,6 +46,9 @@ export const metadata: Metadata = {
   category: "technology",
   alternates: {
     canonical: "/",
+    types: {
+      "text/markdown": `${siteUrl}/llms-full.txt`,
+    },
   },
   robots: {
     index: true,

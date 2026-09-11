@@ -117,3 +117,22 @@ ${profile.footerServices.map((s) => `- ${s}`).join("\n")}
 - Robots: ${siteUrl}/robots.txt
 `;
 }
+
+/**
+ * Estimates the token count for LLM context budgeting (standard heuristic: ~4 chars per token).
+ */
+export function estimateTokens(text: string): number {
+  if (!text) return 0;
+  return Math.ceil(text.length / 4);
+}
+
+/**
+ * Returns the markdown representation for a given route pathname.
+ */
+export function getMarkdownForPath(pathname: string): string {
+  const normalized = pathname.replace(/\/+$/, "") || "/";
+  if (normalized === "/llms.txt") {
+    return getLlmsTxt();
+  }
+  return getLlmsFullTxt();
+}
