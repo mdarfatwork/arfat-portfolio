@@ -48,10 +48,10 @@ export function getLlmsFullTxt(): string {
     .join("\n\n");
 
   const experienceBlocks = experience
-    .map(
-      (job) =>
-        `### ${job.role} @ ${job.company}\n${job.location} · ${job.period}\n\n${job.highlights.map((h) => `- ${h}`).join("\n")}`,
-    )
+    .map((job) => {
+      const highlights = job.highlights.map((h) => `- ${h}`).join("\n");
+      return `### ${job.role} @ ${job.company}\n${job.location} · ${job.period}\n\n${highlights}`;
+    })
     .join("\n\n");
 
   const projectBlocks = projects
@@ -63,12 +63,22 @@ export function getLlmsFullTxt(): string {
         .filter(Boolean)
         .join(" | ");
 
-      return `### ${project.title}${project.context ? ` (${project.context})` : ""}\n${project.description}\n\n${project.details}\n\nTechnologies: ${project.technologies.join(", ")}${links ? `\n${links}` : ""}`;
+      const contextSuffix = project.context ? ` (${project.context})` : "";
+      const linksSuffix = links ? `\n${links}` : "";
+
+      return `### ${project.title}${contextSuffix}\n${project.description}\n\n${project.details}\n\nTechnologies: ${project.technologies.join(", ")}${linksSuffix}`;
     })
     .join("\n\n");
 
   const certBlocks = certifications
-    .map((cert) => `- ${cert.title} — ${cert.issuer}${cert.url ? `: ${cert.url}` : ""}`)
+    .map((cert) => {
+      const urlSuffix = cert.url ? `: ${cert.url}` : "";
+      return `- ${cert.title} — ${cert.issuer}${urlSuffix}`;
+    })
+    .join("\n");
+
+  const serviceBlocks = profile.footerServices
+    .map((s) => `- ${s}`)
     .join("\n");
 
   return `# ${profile.name} — Full Profile
@@ -110,7 +120,7 @@ ${certBlocks}
 
 ## Services
 
-${profile.footerServices.map((s) => `- ${s}`).join("\n")}
+${serviceBlocks}
 
 ## Site & Agent Discovery
 
@@ -136,7 +146,10 @@ export function estimateTokens(text: string): number {
  * Returns the markdown representation for a given route pathname.
  */
 export function getMarkdownForPath(pathname: string): string {
-  const normalized = pathname.replace(/\/+$/, "") || "/";
+  let normalized = pathname;
+  while (normalized.length > 1 && normalized.endsWith("/")) {
+    normalized = normalized.slice(0, -1);
+  }
   if (normalized === "/llms.txt") {
     return getLlmsTxt();
   }
