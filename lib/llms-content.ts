@@ -36,6 +36,7 @@ ${profile.aboutIntro}
 
 - [Full profile for LLMs](${siteUrl}/llms-full.txt): Extended biography, projects, and experience
 - [API Catalog](${siteUrl}/.well-known/api-catalog): RFC 9727 linkset API & resource catalog
+- [Web Bot Auth JWKS Directory](${siteUrl}/.well-known/http-message-signatures-directory): Cryptographic HTTP message signatures key directory for bot authentication
 `;
 }
 
@@ -111,13 +112,15 @@ ${certBlocks}
 
 ${profile.footerServices.map((s) => `- ${s}`).join("\n")}
 
-## Site
+## Site & Agent Discovery
 
 - Framework: Next.js (App Router), TypeScript, Tailwind CSS
 - Sitemap: ${siteUrl}/sitemap.xml
 - Robots: ${siteUrl}/robots.txt
 - API Catalog: ${siteUrl}/.well-known/api-catalog
+- Web Bot Auth Directory: ${siteUrl}/.well-known/http-message-signatures-directory
 - LLMs Summary: ${siteUrl}/llms.txt
+- LLMs Full: ${siteUrl}/llms-full.txt
 `;
 }
 

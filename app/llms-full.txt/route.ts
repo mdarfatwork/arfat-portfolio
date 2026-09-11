@@ -4,6 +4,7 @@ export const dynamic = "force-static";
 
 const linkHeader = [
   '</.well-known/api-catalog>; rel="api-catalog"',
+  '</.well-known/http-message-signatures-directory>; rel="http-message-signatures-directory"',
   '</llms.txt>; rel="describedby"; type="text/markdown"',
   '</llms-full.txt>; rel="describedby"; type="text/markdown"',
   '</sitemap.xml>; rel="sitemap"; type="application/xml"',

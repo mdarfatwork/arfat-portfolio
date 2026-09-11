@@ -16,6 +16,13 @@ export function GET() {
             title: "API Catalog",
           },
         ],
+        "http-message-signatures-directory": [
+          {
+            href: `${siteUrl}/.well-known/http-message-signatures-directory`,
+            type: "application/http-message-signatures-directory+json",
+            title: "HTTP Message Signatures Directory (Web Bot Auth JWKS)",
+          },
+        ],
         describedby: [
           {
             href: `${siteUrl}/llms.txt`,
@@ -41,6 +48,7 @@ export function GET() {
 
   const linkHeader = [
     '</.well-known/api-catalog>; rel="api-catalog"',
+    '</.well-known/http-message-signatures-directory>; rel="http-message-signatures-directory"',
     '</llms.txt>; rel="describedby"; type="text/markdown"',
     '</llms-full.txt>; rel="describedby"; type="text/markdown"',
     '</sitemap.xml>; rel="sitemap"; type="application/xml"',
@@ -55,3 +63,4 @@ export function GET() {
     },
   });
 }
+

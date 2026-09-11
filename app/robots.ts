@@ -4,6 +4,14 @@ import { getSiteUrl } from "@/lib/site";
 export default function robots(): MetadataRoute.Robots {
   const siteUrl = getSiteUrl();
 
+  const allowedAgentPaths = [
+    "/",
+    "/llms.txt",
+    "/llms-full.txt",
+    "/.well-known/api-catalog",
+    "/.well-known/http-message-signatures-directory",
+  ];
+
   return {
     rules: [
       {
@@ -12,30 +20,31 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: "GPTBot",
-        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
+        allow: allowedAgentPaths,
       },
       {
         userAgent: "ChatGPT-User",
-        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
+        allow: allowedAgentPaths,
       },
       {
         userAgent: "Google-Extended",
-        allow: ["/", "/.well-known/api-catalog"],
+        allow: ["/", "/.well-known/api-catalog", "/.well-known/http-message-signatures-directory"],
       },
       {
         userAgent: "anthropic-ai",
-        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
+        allow: allowedAgentPaths,
       },
       {
         userAgent: "ClaudeBot",
-        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
+        allow: allowedAgentPaths,
       },
       {
         userAgent: "PerplexityBot",
-        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
+        allow: allowedAgentPaths,
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,
     host: siteUrl,
   };
 }
+

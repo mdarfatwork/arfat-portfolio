@@ -90,6 +90,7 @@ export const metadata: Metadata = {
     "llms-txt": `${siteUrl}/llms.txt`,
     "llms-full-txt": `${siteUrl}/llms-full.txt`,
     "api-catalog": `${siteUrl}/.well-known/api-catalog`,
+    "http-message-signatures-directory": `${siteUrl}/.well-known/http-message-signatures-directory`,
   },
 };
 
@@ -102,6 +103,10 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="api-catalog" href="/.well-known/api-catalog" />
+        <link
+          rel="http-message-signatures-directory"
+          href="/.well-known/http-message-signatures-directory"
+        />
         <link rel="describedby" href="/llms.txt" type="text/markdown" />
         <link rel="describedby" href="/llms-full.txt" type="text/markdown" />
       </head>
