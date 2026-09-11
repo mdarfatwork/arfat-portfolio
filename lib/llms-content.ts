@@ -35,6 +35,7 @@ ${profile.aboutIntro}
 ## Optional
 
 - [Full profile for LLMs](${siteUrl}/llms-full.txt): Extended biography, projects, and experience
+- [API Catalog](${siteUrl}/.well-known/api-catalog): RFC 9727 linkset API & resource catalog
 `;
 }
 
@@ -115,6 +116,8 @@ ${profile.footerServices.map((s) => `- ${s}`).join("\n")}
 - Framework: Next.js (App Router), TypeScript, Tailwind CSS
 - Sitemap: ${siteUrl}/sitemap.xml
 - Robots: ${siteUrl}/robots.txt
+- API Catalog: ${siteUrl}/.well-known/api-catalog
+- LLMs Summary: ${siteUrl}/llms.txt
 `;
 }
 

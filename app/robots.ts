@@ -12,27 +12,27 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: "GPTBot",
-        allow: ["/", "/llms.txt", "/llms-full.txt"],
+        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
       },
       {
         userAgent: "ChatGPT-User",
-        allow: ["/", "/llms.txt", "/llms-full.txt"],
+        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
       },
       {
         userAgent: "Google-Extended",
-        allow: "/",
+        allow: ["/", "/.well-known/api-catalog"],
       },
       {
         userAgent: "anthropic-ai",
-        allow: ["/", "/llms.txt", "/llms-full.txt"],
+        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
       },
       {
         userAgent: "ClaudeBot",
-        allow: ["/", "/llms.txt", "/llms-full.txt"],
+        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
       },
       {
         userAgent: "PerplexityBot",
-        allow: ["/", "/llms.txt", "/llms-full.txt"],
+        allow: ["/", "/llms.txt", "/llms-full.txt", "/.well-known/api-catalog"],
       },
     ],
     sitemap: `${siteUrl}/sitemap.xml`,

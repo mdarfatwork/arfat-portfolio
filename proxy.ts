@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { estimateTokens, getMarkdownForPath } from "@/lib/llms-content";
 
+const LINK_HEADERS = [
+  '</.well-known/api-catalog>; rel="api-catalog"',
+  '</llms.txt>; rel="describedby"; type="text/markdown"',
+  '</llms-full.txt>; rel="describedby"; type="text/markdown"',
+  '</sitemap.xml>; rel="sitemap"; type="application/xml"',
+].join(", ");
+
 /**
  * Checks whether the incoming request prefers or accepts markdown over html.
  */
@@ -24,11 +31,14 @@ export function proxy(request: NextRequest) {
         "x-markdown-tokens": tokenCount.toString(),
         "Vary": "Accept",
         "Cache-Control": "public, max-age=3600, s-maxage=86400",
+        "Link": LINK_HEADERS,
       },
     });
   }
 
-  return NextResponse.next();
+  const response = NextResponse.next();
+  response.headers.set("Link", LINK_HEADERS);
+  return response;
 }
 
 export const config = {

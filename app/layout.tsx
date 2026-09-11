@@ -89,6 +89,7 @@ export const metadata: Metadata = {
   other: {
     "llms-txt": `${siteUrl}/llms.txt`,
     "llms-full-txt": `${siteUrl}/llms-full.txt`,
+    "api-catalog": `${siteUrl}/.well-known/api-catalog`,
   },
 };
 
@@ -99,6 +100,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="api-catalog" href="/.well-known/api-catalog" />
+        <link rel="describedby" href="/llms.txt" type="text/markdown" />
+        <link rel="describedby" href="/llms-full.txt" type="text/markdown" />
+      </head>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} min-h-screen bg-background font-sans text-foreground antialiased`}
         suppressHydrationWarning
