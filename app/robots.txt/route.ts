@@ -7,9 +7,18 @@ export function generateRobotsTxt(): string {
 
   const allowedAgentPaths = [
     "/",
+    "/auth.md",
     "/llms.txt",
     "/llms-full.txt",
     "/.well-known/api-catalog",
+    "/.well-known/ai-catalog.json",
+    "/.well-known/mcp/server-card.json",
+    "/.well-known/agent-skills/index.json",
+    "/.well-known/agent-skills/portfolio-assistant/SKILL.md",
+    "/.well-known/oauth-protected-resource",
+    "/.well-known/openid-configuration",
+    "/.well-known/oauth-authorization-server",
+    "/.well-known/jwks.json",
     "/.well-known/http-message-signatures-directory",
   ];
 
@@ -31,7 +40,7 @@ export function generateRobotsTxt(): string {
     },
     {
       userAgent: "Google-Extended",
-      allows: ["/", "/.well-known/api-catalog", "/.well-known/http-message-signatures-directory"],
+      allows: allowedAgentPaths,
       contentSignal: "ai-train=no, search=yes, ai-input=no",
     },
     {
@@ -64,6 +73,7 @@ export function generateRobotsTxt(): string {
 
 Host: ${siteUrl}
 Sitemap: ${siteUrl}/sitemap.xml
+Agentmap: ${siteUrl}/.well-known/ai-catalog.json
 `;
 }
 

@@ -1,34 +1,34 @@
-import { getWebBotAuthJwks } from "@/lib/web-bot-auth";
+import { getOAuthAuthorizationServerMetadata } from "@/lib/oauth-discovery";
 
 export const dynamic = "force-static";
 
 const LINK_HEADER = [
-  '</.well-known/http-message-signatures-directory>; rel="http-message-signatures-directory"',
+  '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"',
   '</auth.md>; rel="describedby"; type="text/markdown"',
   '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"',
   '</.well-known/openid-configuration>; rel="openid-configuration"',
-  '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"',
   '</.well-known/jwks.json>; rel="jwks"',
   '</.well-known/api-catalog>; rel="api-catalog"',
+  '</.well-known/http-message-signatures-directory>; rel="http-message-signatures-directory"',
   '</llms.txt>; rel="describedby"; type="text/markdown"',
   '</llms-full.txt>; rel="describedby"; type="text/markdown"',
   '</sitemap.xml>; rel="sitemap"; type="application/xml"',
 ].join(", ");
 
 const COMMON_HEADERS = {
-  "Content-Type": "application/http-message-signatures-directory+json; charset=utf-8",
+  "Content-Type": "application/json; charset=utf-8",
   "Cache-Control": "public, max-age=86400, s-maxage=86400",
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Accept, Signature, Signature-Input, Signature-Agent",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept",
   "Vary": "Accept",
   "Link": LINK_HEADER,
 };
 
 export function GET() {
-  const jwks = getWebBotAuthJwks();
+  const metadata = getOAuthAuthorizationServerMetadata();
 
-  return new Response(JSON.stringify(jwks, null, 2), {
+  return new Response(JSON.stringify(metadata, null, 2), {
     status: 200,
     headers: COMMON_HEADERS,
   });
@@ -47,7 +47,7 @@ export function OPTIONS() {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, HEAD, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type, Accept, Signature, Signature-Input, Signature-Agent",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization, Accept",
       "Access-Control-Max-Age": "86400",
     },
   });

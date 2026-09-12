@@ -12,7 +12,7 @@ export function getSiteUrl(): string {
   const url =
     process.env.NEXT_PUBLIC_SITE_URL ??
     process.env.VERCEL_URL ??
-    "https://mohammedarfat.vercel.app";
+    "arfat.is-a.dev";
 
   if (url.startsWith("http")) return url.replace(/\/$/, "");
   return `https://${url.replace(/\/$/, "")}`;

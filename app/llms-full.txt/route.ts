@@ -4,6 +4,11 @@ export const dynamic = "force-static";
 
 const linkHeader = [
   '</.well-known/api-catalog>; rel="api-catalog"',
+  '</auth.md>; rel="describedby"; type="text/markdown"',
+  '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"',
+  '</.well-known/openid-configuration>; rel="openid-configuration"',
+  '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"',
+  '</.well-known/jwks.json>; rel="jwks"',
   '</.well-known/http-message-signatures-directory>; rel="http-message-signatures-directory"',
   '</llms.txt>; rel="describedby"; type="text/markdown"',
   '</llms-full.txt>; rel="describedby"; type="text/markdown"',

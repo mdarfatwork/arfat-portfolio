@@ -7,6 +7,7 @@ import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { LoadingScreen } from "@/components/layout/LoadingScreen";
 import { Navbar } from "@/components/layout/Navbar";
 import { BackToTop } from "@/components/layout/BackToTop";
+import { WebMcpProvider } from "@/components/agent/WebMcpProvider";
 
 type AppShellProps = Readonly<{
   children: ReactNode;
@@ -31,9 +32,11 @@ export function Providers({ children }: ProvidersProps) {
   return (
     <ThemeProvider>
       <LoadingProvider>
-        <SmoothScroll>
-          <AppShell>{children}</AppShell>
-        </SmoothScroll>
+        <WebMcpProvider>
+          <SmoothScroll>
+            <AppShell>{children}</AppShell>
+          </SmoothScroll>
+        </WebMcpProvider>
       </LoadingProvider>
     </ThemeProvider>
   );

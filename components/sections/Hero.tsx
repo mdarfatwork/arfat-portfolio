@@ -55,7 +55,7 @@ export function Hero() {
         >
           <Button href="#projects">View Projects</Button>
           <Button href="#contact" variant="outline">
-            Let's Work Together
+            Let&apos;s Work Together
           </Button>
         </motion.div>
 

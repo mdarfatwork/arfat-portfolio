@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { estimateTokens, getMarkdownForPath } from "@/lib/llms-content";
+import { getAuthMd } from "@/lib/oauth-discovery";
+import { getPortfolioAssistantSkillMd } from "@/lib/agent-discovery";
 
 const LINK_HEADERS = [
   '</.well-known/api-catalog>; rel="api-catalog"',
+  '</.well-known/ai-catalog.json>; rel="ai-catalog"',
+  '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
+  '</.well-known/agent-skills/index.json>; rel="agent-skills"',
+  '</auth.md>; rel="describedby"; type="text/markdown"',
+  '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"',
+  '</.well-known/openid-configuration>; rel="openid-configuration"',
+  '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"',
+  '</.well-known/jwks.json>; rel="jwks"',
   '</.well-known/http-message-signatures-directory>; rel="http-message-signatures-directory"',
   '</llms.txt>; rel="describedby"; type="text/markdown"',
   '</llms-full.txt>; rel="describedby"; type="text/markdown"',
@@ -22,7 +32,19 @@ export function proxy(request: NextRequest) {
 
   if (prefersMarkdown(acceptHeader)) {
     const pathname = request.nextUrl.pathname;
-    const markdownContent = getMarkdownForPath(pathname);
+    let markdownContent = "";
+
+    if (pathname === "/auth.md") {
+      markdownContent = getAuthMd();
+    } else if (
+      pathname ===
+      "/.well-known/agent-skills/portfolio-assistant/SKILL.md"
+    ) {
+      markdownContent = getPortfolioAssistantSkillMd();
+    } else {
+      markdownContent = getMarkdownForPath(pathname);
+    }
+
     const tokenCount = estimateTokens(markdownContent);
 
     return new Response(markdownContent, {

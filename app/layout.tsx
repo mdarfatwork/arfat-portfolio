@@ -87,9 +87,17 @@ export const metadata: Metadata = {
     apple: "/icon.svg",
   },
   other: {
+    "ai-catalog": `${siteUrl}/.well-known/ai-catalog.json`,
+    "mcp-server-card": `${siteUrl}/.well-known/mcp/server-card.json`,
+    "agent-skills": `${siteUrl}/.well-known/agent-skills/index.json`,
+    "auth-md": `${siteUrl}/auth.md`,
     "llms-txt": `${siteUrl}/llms.txt`,
     "llms-full-txt": `${siteUrl}/llms-full.txt`,
     "api-catalog": `${siteUrl}/.well-known/api-catalog`,
+    "oauth-protected-resource": `${siteUrl}/.well-known/oauth-protected-resource`,
+    "openid-configuration": `${siteUrl}/.well-known/openid-configuration`,
+    "oauth-authorization-server": `${siteUrl}/.well-known/oauth-authorization-server`,
+    jwks: `${siteUrl}/.well-known/jwks.json`,
     "http-message-signatures-directory": `${siteUrl}/.well-known/http-message-signatures-directory`,
   },
 };
@@ -103,10 +111,33 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="api-catalog" href="/.well-known/api-catalog" />
+        <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
+        <link
+          rel="mcp-server-card"
+          href="/.well-known/mcp/server-card.json"
+        />
+        <link
+          rel="agent-skills"
+          href="/.well-known/agent-skills/index.json"
+        />
+        <link
+          rel="oauth-protected-resource"
+          href="/.well-known/oauth-protected-resource"
+        />
+        <link
+          rel="openid-configuration"
+          href="/.well-known/openid-configuration"
+        />
+        <link
+          rel="oauth-authorization-server"
+          href="/.well-known/oauth-authorization-server"
+        />
+        <link rel="jwks" href="/.well-known/jwks.json" />
         <link
           rel="http-message-signatures-directory"
           href="/.well-known/http-message-signatures-directory"
         />
+        <link rel="describedby" href="/auth.md" type="text/markdown" />
         <link rel="describedby" href="/llms.txt" type="text/markdown" />
         <link rel="describedby" href="/llms-full.txt" type="text/markdown" />
       </head>

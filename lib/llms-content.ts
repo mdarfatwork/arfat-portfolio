@@ -35,7 +35,15 @@ ${profile.aboutIntro}
 ## Optional
 
 - [Full profile for LLMs](${siteUrl}/llms-full.txt): Extended biography, projects, and experience
+- [ARD AI Catalog](${siteUrl}/.well-known/ai-catalog.json): Agentic Resource Discovery manifest
+- [MCP Server Card](${siteUrl}/.well-known/mcp/server-card.json): Model Context Protocol server metadata (SEP-1649)
+- [Agent Skills Index](${siteUrl}/.well-known/agent-skills/index.json): Agent Skills Discovery RFC v0.2.0 index
+- [Auth.md Specification](${siteUrl}/auth.md): Agent authentication and dynamic client registration discovery
 - [API Catalog](${siteUrl}/.well-known/api-catalog): RFC 9727 linkset API & resource catalog
+- [OAuth 2.0 Protected Resource](${siteUrl}/.well-known/oauth-protected-resource): RFC 9728 OAuth resource metadata
+- [OpenID Connect Discovery](${siteUrl}/.well-known/openid-configuration): OIDC Discovery 1.0 metadata for AI agent authentication
+- [OAuth 2.0 Authorization Server](${siteUrl}/.well-known/oauth-authorization-server): RFC 8414 OAuth server metadata with Auth.md agent_auth
+- [JSON Web Key Set](${siteUrl}/.well-known/jwks.json): RFC 7517 public keys for token validation
 - [Web Bot Auth JWKS Directory](${siteUrl}/.well-known/http-message-signatures-directory): Cryptographic HTTP message signatures key directory for bot authentication
 `;
 }
@@ -125,9 +133,18 @@ ${serviceBlocks}
 ## Site & Agent Discovery
 
 - Framework: Next.js (App Router), TypeScript, Tailwind CSS
+- WebMCP: Browser AI tools exposed via \`navigator.modelContext.provideContext()\`
 - Sitemap: ${siteUrl}/sitemap.xml
 - Robots: ${siteUrl}/robots.txt
+- ARD AI Catalog: ${siteUrl}/.well-known/ai-catalog.json
+- MCP Server Card: ${siteUrl}/.well-known/mcp/server-card.json
+- Agent Skills Discovery: ${siteUrl}/.well-known/agent-skills/index.json
+- Auth.md: ${siteUrl}/auth.md
 - API Catalog: ${siteUrl}/.well-known/api-catalog
+- OAuth Protected Resource: ${siteUrl}/.well-known/oauth-protected-resource
+- OpenID Connect Configuration: ${siteUrl}/.well-known/openid-configuration
+- OAuth Authorization Server: ${siteUrl}/.well-known/oauth-authorization-server
+- JWKS Directory: ${siteUrl}/.well-known/jwks.json
 - Web Bot Auth Directory: ${siteUrl}/.well-known/http-message-signatures-directory
 - LLMs Summary: ${siteUrl}/llms.txt
 - LLMs Full: ${siteUrl}/llms-full.txt
