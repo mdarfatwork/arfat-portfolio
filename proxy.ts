@@ -28,23 +28,24 @@ function prefersMarkdown(acceptHeader: string): boolean {
 }
 
 export function proxy(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  // Let dedicated route handlers handle .well-known endpoints, /auth.md, and /llms endpoints directly
+  if (
+    pathname.startsWith("/.well-known") ||
+    pathname === "/auth.md" ||
+    pathname === "/llms.txt" ||
+    pathname === "/llms-full.txt"
+  ) {
+    const response = NextResponse.next();
+    response.headers.set("Link", LINK_HEADERS);
+    return response;
+  }
+
   const acceptHeader = request.headers.get("accept") || "";
 
   if (prefersMarkdown(acceptHeader)) {
-    const pathname = request.nextUrl.pathname;
-    let markdownContent = "";
-
-    if (pathname === "/auth.md") {
-      markdownContent = getAuthMd();
-    } else if (
-      pathname ===
-      "/.well-known/agent-skills/portfolio-assistant/SKILL.md"
-    ) {
-      markdownContent = getPortfolioAssistantSkillMd();
-    } else {
-      markdownContent = getMarkdownForPath(pathname);
-    }
-
+    const markdownContent = getMarkdownForPath(pathname);
     const tokenCount = estimateTokens(markdownContent);
 
     return new Response(markdownContent, {
@@ -69,10 +70,11 @@ export const config = {
     /*
      * Match all request paths except for:
      * - api routes
+     * - .well-known routes
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico, sitemap.xml, robots.txt, icon.svg, manifest.webmanifest
      */
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|icon.svg|manifest.webmanifest).*)",
+    "/((?!api|\\.well-known|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|icon.svg|manifest.webmanifest).*)",
   ],
 };

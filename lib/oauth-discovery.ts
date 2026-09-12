@@ -36,6 +36,8 @@ export interface AgentAuthMetadata {
   register_uri: string;
   identity_endpoint?: string;
   claim_endpoint?: string;
+  claim_uri?: string;
+  revocation_uri?: string;
   events_endpoint?: string;
   identity_types_supported: string[];
   identity_assertion?: {
@@ -76,6 +78,9 @@ export interface OAuthAuthorizationServerMetadata {
   code_challenge_methods_supported?: string[];
   service_documentation?: string;
   agent_auth?: AgentAuthMetadata;
+  resource?: string;
+  authorization_servers?: string[];
+  bearer_methods_supported?: string[];
 }
 
 /**
@@ -155,6 +160,10 @@ export function getOAuthAuthorizationServerMetadata(): OAuthAuthorizationServerM
   const siteUrl = getSiteUrl();
 
   return {
+    resource: siteUrl,
+    authorization_servers: [siteUrl],
+    scopes_supported: ["openid", "profile", "email", "read", "write"],
+    bearer_methods_supported: ["header"],
     issuer: siteUrl,
     authorization_endpoint: `${siteUrl}/api/auth/authorize`,
     token_endpoint: `${siteUrl}/api/auth/token`,
@@ -162,7 +171,6 @@ export function getOAuthAuthorizationServerMetadata(): OAuthAuthorizationServerM
     registration_endpoint: `${siteUrl}/api/auth/register`,
     revocation_endpoint: `${siteUrl}/api/auth/revoke`,
     introspection_endpoint: `${siteUrl}/api/auth/introspect`,
-    scopes_supported: ["openid", "profile", "email", "read", "write"],
     response_types_supported: ["code", "token"],
     response_modes_supported: ["query", "fragment"],
     grant_types_supported: [
@@ -187,10 +195,12 @@ export function getOAuthAuthorizationServerMetadata(): OAuthAuthorizationServerM
     code_challenge_methods_supported: ["S256", "plain"],
     service_documentation: `${siteUrl}/auth.md`,
     agent_auth: {
-      skill: "https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md",
+      skill: `${siteUrl}/auth.md`,
       register_uri: `${siteUrl}/api/auth/register`,
       identity_endpoint: `${siteUrl}/api/auth/register`,
       claim_endpoint: `${siteUrl}/api/auth/claim`,
+      claim_uri: `${siteUrl}/api/auth/claim`,
+      revocation_uri: `${siteUrl}/api/auth/revoke`,
       events_endpoint: `${siteUrl}/api/auth/events`,
       identity_types_supported: [
         "identity_assertion",
@@ -262,93 +272,200 @@ export function getAuthMd(): string {
 
 > Specification & Discovery for AI Agent Registration and Automated Authentication
 
-This document describes authentication, token issuance, and programmatic agent registration for automated AI agents and LLMs interacting with **${profile.name}**'s portfolio and APIs.
+You are an agent. This service supports **agentic registration**: discover → register → (claim if needed) → exchange for an access_token → call API → handle revocation. Follow the steps in order; do not skip ahead.
 
-## 1. Overview & Service Metadata
+## Step 1 — Discover
 
-- **Service Name**: ${profile.name} Portfolio & Developer APIs
-- **Resource Server**: ${siteUrl}
-- **Authorization Server**: ${siteUrl}
-- **Target Audience**: Autonomous AI Agents, LLM crawlers, Bot integrations, MCP Clients
-- **Auth.md Standard**: [https://workos.com/auth-md](https://workos.com/auth-md)
-- **Agent Skill Reference**: [https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md](https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md)
-- **Pricing & Access**: Free, open access developer portfolio & MCP server
+Discovery starts with the OAuth Protected Resource Metadata (PRM) and Authorization Server (AS) metadata.
 
-## 2. Discovery Endpoints
+### 1a. Fetch the Protected Resource Metadata (RFC 9728)
 
-- **OAuth Protected Resource Metadata (RFC 9728)**: [${siteUrl}/.well-known/oauth-protected-resource](${siteUrl}/.well-known/oauth-protected-resource)
-- **OAuth Authorization Server Metadata (RFC 8414)**: [${siteUrl}/.well-known/oauth-authorization-server](${siteUrl}/.well-known/oauth-authorization-server)
-- **OpenID Connect Discovery 1.0**: [${siteUrl}/.well-known/openid-configuration](${siteUrl}/.well-known/openid-configuration)
-- **JSON Web Key Set (RFC 7517)**: [${siteUrl}/.well-known/jwks.json](${siteUrl}/.well-known/jwks.json)
-- **API Catalog (RFC 9727)**: [${siteUrl}/.well-known/api-catalog](${siteUrl}/.well-known/api-catalog)
-- **ARD Agentic Resource Discovery**: [${siteUrl}/.well-known/ai-catalog.json](${siteUrl}/.well-known/ai-catalog.json)
-- **MCP Server Card**: [${siteUrl}/.well-known/mcp/server-card.json](${siteUrl}/.well-known/mcp/server-card.json)
-- **LLM Context**: [${siteUrl}/llms.txt](${siteUrl}/llms.txt) and [${siteUrl}/llms-full.txt](${siteUrl}/llms-full.txt)
+\`\`\`http
+GET /.well-known/oauth-protected-resource
+\`\`\`
 
-## 3. Dynamic Agent Registration & Provisioning
+**Response:**
 
-AI agents can programmatically register and obtain credentials without human form submission.
+\`\`\`json
+{
+  "resource": "${siteUrl}",
+  "resource_name": "${profile.name} Portfolio & Developer APIs",
+  "resource_documentation": "${siteUrl}/auth.md",
+  "authorization_servers": ["${siteUrl}"],
+  "scopes_supported": ["openid", "profile", "email", "read", "write"],
+  "bearer_methods_supported": ["header"],
+  "jwks_uri": "${siteUrl}/.well-known/jwks.json"
+}
+\`\`\`
 
-- **Registration / Identity Endpoint**: \`${siteUrl}/api/auth/register\`
-- **Claim Endpoint**: \`${siteUrl}/api/auth/claim\`
-- **Token Endpoint**: \`${siteUrl}/api/auth/token\`
-- **Revocation Endpoint**: \`${siteUrl}/api/auth/revoke\`
-- **Events Endpoint**: \`${siteUrl}/api/auth/events\`
-- **HTTP Method**: \`POST\`
-- **Content-Type**: \`application/json\`
+- \`resource\` — Canonical URL of the API. Use this as \`aud\` when minting an ID-JAG token.
+- \`authorization_servers\` — Base URLs of the OAuth Authorization Server(s).
+- \`scopes_supported\` — Scopes understood by the service.
+- \`bearer_methods_supported\` — Access token transmission format (\`"header"\` = \`Authorization: Bearer <token>\`).
 
-### Supported Identity Types
+### 1b. Fetch the Authorization Server Metadata (RFC 8414)
 
-1. **Agent Verified Flow (\`identity_assertion\`)**:
-   - Trusted agent providers assert user identity via ID-JAG token (\`urn:ietf:params:oauth:token-type:id-jag\`) or verified email (\`verified_email\`).
-   - Supported Credential Types: \`bearer_token\`, \`api_key\`, \`http_message_signature\`
-   - Claim URI: \`${siteUrl}/api/auth/claim\`
-   - Revocation URI: \`${siteUrl}/api/auth/revoke\`
-   - Supported Events: \`revocation\`, \`https://schemas.workos.com/events/agent/auth/identity/assertion/revoked\`
+\`\`\`http
+GET /.well-known/oauth-authorization-server
+\`\`\`
 
-2. **User Claimed Flow (\`anonymous\` & \`service_auth\`)**:
-   - **Anonymous Start (\`anonymous\`)**: Agent self-registers without identity and receives a pre-claim credential immediately. Can run claim ceremony anytime before expiry.
-     - Credential Types: \`bearer_token\`, \`ephemeral_key\`
-     - Claim URI: \`${siteUrl}/api/auth/claim\`
-   - **Email Start (\`service_auth\`)**: Agent supplies user email as \`login_hint\` at registration. Assertion is issued when the user completes code confirmation.
-     - Credential Types: \`bearer_token\`, \`api_key\`
-     - Claim URI: \`${siteUrl}/api/auth/claim\`
+**Response (with Auth.md agent_auth block):**
 
-## 4. Supported Credential & Authentication Methods
+\`\`\`json
+{
+  "resource": "${siteUrl}",
+  "authorization_servers": ["${siteUrl}"],
+  "scopes_supported": ["openid", "profile", "email", "read", "write"],
+  "bearer_methods_supported": ["header"],
+  "issuer": "${siteUrl}",
+  "authorization_endpoint": "${siteUrl}/api/auth/authorize",
+  "token_endpoint": "${siteUrl}/api/auth/token",
+  "registration_endpoint": "${siteUrl}/api/auth/register",
+  "revocation_endpoint": "${siteUrl}/api/auth/revoke",
+  "introspection_endpoint": "${siteUrl}/api/auth/introspect",
+  "jwks_uri": "${siteUrl}/.well-known/jwks.json",
+  "grant_types_supported": [
+    "authorization_code",
+    "client_credentials",
+    "refresh_token",
+    "urn:ietf:params:oauth:grant-type:jwt-bearer",
+    "urn:ietf:params:oauth:grant-type:token-exchange",
+    "urn:workos:agent-auth:grant-type:claim"
+  ],
+  "agent_auth": {
+    "skill": "${siteUrl}/auth.md",
+    "register_uri": "${siteUrl}/api/auth/register",
+    "identity_endpoint": "${siteUrl}/api/auth/register",
+    "claim_endpoint": "${siteUrl}/api/auth/claim",
+    "claim_uri": "${siteUrl}/api/auth/claim",
+    "revocation_uri": "${siteUrl}/api/auth/revoke",
+    "events_endpoint": "${siteUrl}/api/auth/events",
+    "identity_types_supported": ["identity_assertion", "anonymous", "service_auth"],
+    "identity_assertion": {
+      "assertion_types_supported": ["urn:ietf:params:oauth:token-type:id-jag", "verified_email"],
+      "credential_types_supported": ["bearer_token", "api_key", "http_message_signature"],
+      "claim_uri": "${siteUrl}/api/auth/claim",
+      "revocation_uri": "${siteUrl}/api/auth/revoke"
+    },
+    "anonymous": {
+      "credential_types_supported": ["bearer_token", "ephemeral_key"],
+      "claim_uri": "${siteUrl}/api/auth/claim"
+    },
+    "service_auth": {
+      "credential_types_supported": ["bearer_token", "api_key"],
+      "claim_uri": "${siteUrl}/api/auth/claim"
+    },
+    "events_supported": [
+      "revocation",
+      "https://schemas.workos.com/events/agent/auth/identity/assertion/revoked"
+    ]
+  }
+}
+\`\`\`
 
-1. **OAuth 2.0 Bearer Tokens (RFC 6750)**:
-   - Header: \`Authorization: Bearer <access_token>\`
-   - Token Endpoint: \`${siteUrl}/api/auth/token\`
-   - Supported Grants: \`authorization_code\`, \`client_credentials\`, \`refresh_token\`, \`urn:ietf:params:oauth:grant-type:jwt-bearer\`, \`urn:ietf:params:oauth:grant-type:token-exchange\`, \`urn:workos:agent-auth:grant-type:claim\`
+## Step 2 — Pick an Identity Flow
 
-2. **HTTP Message Signatures (RFC 9421 / Web Bot Auth)**:
-   - Header: \`Signature-Agent: "${siteUrl}/.well-known/http-message-signatures-directory"\`
-   - Algorithm: \`Ed25519 (EdDSA)\`
-   - Public Keys: \`${siteUrl}/.well-known/jwks.json\`
+1. **Identity Assertion Flow (\`identity_assertion\`)**:
+   - For agent providers with user identity assertions (ID-JAG \`urn:ietf:params:oauth:token-type:id-jag\` or verified email \`verified_email\`).
+2. **Anonymous Flow (\`anonymous\`)**:
+   - Self-registration without upfront identity. Receives a pre-claim credential immediately. Claim ceremony can be completed at any time.
+3. **Service Auth Flow (\`service_auth\`)**:
+   - Provide email as login hint at registration, followed by verification ceremony.
 
-3. **API Keys**:
-   - Header: \`x-api-key: <agent_api_key>\` or \`Authorization: Bearer <agent_api_key>\`
+## Step 3 — Register Agent
 
-## 5. Scope Inventory
+Send a POST request to \`${siteUrl}/api/auth/register\`:
 
-| Scope | Description |
-| :--- | :--- |
-| \`openid\` | OpenID Connect user identification |
-| \`profile\` | Read developer biography, summary, and experience |
-| \`email\` | Access developer contact email and communication channels |
-| \`read\` | Query projects, skills, certifications, and public portfolio content |
-| \`write\` | Submit messages, contact forms, or collaboration requests |
+\`\`\`http
+POST /api/auth/register
+Content-Type: application/json
 
-## 6. Token Revocation & Lifecycle
+{
+  "type": "anonymous"
+}
+\`\`\`
 
-- **Revocation Endpoint**: \`${siteUrl}/api/auth/revoke\`
-- **Supported Events**: \`revocation\`, \`https://schemas.workos.com/events/agent/auth/identity/assertion/revoked\`
+**Response:**
 
-## 7. Contact & Support
+\`\`\`json
+{
+  "type": "anonymous",
+  "agent_id": "agent_anon_...",
+  "identity_assertion": "assert_agent_anon_...",
+  "token_endpoint": "${siteUrl}/api/auth/token",
+  "claim_uri": "${siteUrl}/api/auth/claim",
+  "expires_in": 3600,
+  "status": "pre_claim"
+}
+\`\`\`
 
-For integration issues, agent verification, or inquiries:
-- **Developer**: ${profile.name}
+## Step 4 — User Claim Ceremony (When Applicable)
+
+Complete user verification at \`${siteUrl}/api/auth/claim\`:
+
+\`\`\`http
+POST /api/auth/claim
+Content-Type: application/json
+
+{
+  "user_code": "123456"
+}
+\`\`\`
+
+## Step 5 — Obtain Access Token
+
+Request an OAuth 2.0 Bearer token at \`${siteUrl}/api/auth/token\`:
+
+\`\`\`http
+POST /api/auth/token
+Content-Type: application/json
+
+{
+  "grant_type": "client_credentials"
+}
+\`\`\`
+
+**Response:**
+
+\`\`\`json
+{
+  "access_token": "agtt_...",
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "scope": "openid profile email read write"
+}
+\`\`\`
+
+## Step 6 — Make Authenticated API Calls
+
+Include the access token in HTTP headers:
+
+\`\`\`http
+GET /api/mcp
+Authorization: Bearer <access_token>
+\`\`\`
+
+## Step 7 — Token Revocation & Security Events
+
+Revoke active credentials:
+
+\`\`\`http
+POST /api/auth/revoke
+Content-Type: application/json
+
+{
+  "token": "<access_token>"
+}
+\`\`\`
+
+Push security events (RFC 8417 / RFC 8935) to \`${siteUrl}/api/auth/events\`.
+
+## Contact & Support
+
+- **Maintainer**: ${profile.name}
 - **Email**: [${profile.email}](mailto:${profile.email})
 - **GitHub**: [${profile.github}](${profile.github})
+- **Auth.md Standard**: [https://workos.com/auth-md](https://workos.com/auth-md)
+- **Agent Skill Reference**: [https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md](https://isitagentready.com/.well-known/agent-skills/auth-md/SKILL.md)
 `;
 }

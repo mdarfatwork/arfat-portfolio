@@ -9,7 +9,7 @@ type FadeInProps = {
   delay?: number;
 };
 
-export function FadeIn({ children, className, delay = 0 }: FadeInProps) {
+export function FadeIn({ children, className, delay = 0 }: Readonly<FadeInProps>) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
