@@ -10,7 +10,7 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-3">
           <div>
             <Logo />
-            <h3 className="mt-6 font-heading text-2xl font-bold">Let&apos;s Talk</h3>
+            <h2 className="mt-6 font-heading text-2xl font-bold">Let&apos;s Talk</h2>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               Full Stack Developer specializing in scalable web applications,
               business automation solutions, and premium digital products.
@@ -45,7 +45,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading text-lg font-semibold">Navigation</h3>
+            <h2 className="font-heading text-lg font-semibold">Navigation</h2>
             <ul className="mt-4 space-y-2">
               {profile.navLinks.map((link) => (
                 <li key={link.href}>
@@ -61,7 +61,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-heading text-lg font-semibold">Services</h3>
+            <h2 className="font-heading text-lg font-semibold">Services</h2>
             <ul className="mt-4 space-y-2">
               {profile.footerServices.map((service) => (
                 <li key={service}>

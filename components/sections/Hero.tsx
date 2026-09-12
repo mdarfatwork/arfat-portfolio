@@ -67,9 +67,9 @@ export function Hero() {
         >
           {profile.stats.map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">
-              <h3 className="font-heading text-3xl font-bold text-foreground md:text-4xl">
+              <p className="font-heading text-3xl font-bold text-foreground md:text-4xl">
                 {stat.value}
-              </h3>
+              </p>
               <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
                 {stat.label}
               </p>

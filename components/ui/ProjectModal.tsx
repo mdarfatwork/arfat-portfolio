@@ -39,9 +39,12 @@ function ProjectHeroImage({ project }: { project: Project }) {
           />
         </div>
       ) : (
-        <h3 className="relative z-10 font-heading text-[8rem] font-bold text-foreground/10 select-none md:text-[10rem]">
+        <span
+          aria-hidden="true"
+          className="relative z-10 font-heading text-[8rem] font-bold text-foreground/10 select-none md:text-[10rem]"
+        >
           {initials}
-        </h3>
+        </span>
       )}
     </div>
   );

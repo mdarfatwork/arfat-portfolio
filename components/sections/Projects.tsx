@@ -42,9 +42,12 @@ function ProjectCardImage({ project }: { project: Project }) {
           <div className="absolute inset-0 bg-background/10 transition-colors duration-700 group-hover:bg-transparent" />
         </div>
       ) : (
-        <h3 className="relative z-10 font-heading text-5xl font-bold text-foreground/20 transition-colors duration-500 group-hover:text-foreground/40 md:text-6xl">
+        <span
+          aria-hidden="true"
+          className="relative z-10 font-heading text-5xl font-bold text-foreground/20 transition-colors duration-500 group-hover:text-foreground/40 md:text-6xl"
+        >
           {initials}
-        </h3>
+        </span>
       )}
 
       {project.live && (

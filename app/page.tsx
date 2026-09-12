@@ -38,16 +38,18 @@ const Footer = dynamic(() =>
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
-      <About />
-      <Skills />
-      <Experience />
-      <Projects />
-      <Certifications />
-      <Services />
-      <Contact />
+    <>
+      <main>
+        <Hero />
+        <About />
+        <Skills />
+        <Experience />
+        <Projects />
+        <Certifications />
+        <Services />
+        <Contact />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 }
