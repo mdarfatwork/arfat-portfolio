@@ -110,6 +110,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        <meta name="google-site-verification" content="zYupp6C3rsH2mrVwQe0jlXbmpINi7fL869HaI1XmMV4" />
         <link rel="api-catalog" href="/.well-known/api-catalog" />
         <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
         <link
