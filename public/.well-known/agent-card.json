@@ -1,0 +1,137 @@
+{
+  "$schema": "https://a2a-protocol.org/schemas/agent-card.json",
+  "name": "Momin Mohammed Arfat Portfolio Agent",
+  "version": "1.0.0",
+  "description": "Autonomous AI agent interface for Momin Mohammed Arfat's developer portfolio. Provides agentic discovery of developer background, technical skills, projects, SaaS applications, and contact information via the A2A Protocol.",
+  "provider": {
+    "name": "Momin Mohammed Arfat",
+    "organization": "Momin Mohammed Arfat",
+    "url": "https://arfat.is-a.dev"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://arfat.is-a.dev/api/a2a",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0",
+      "protocol": "JSONRPC",
+      "transport": "HTTP"
+    },
+    {
+      "url": "https://arfat.is-a.dev/api/a2a",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0",
+      "protocol": "HTTP+JSON",
+      "transport": "HTTP"
+    }
+  ],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extendedAgentCard": false
+  },
+  "defaultInputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "defaultOutputModes": [
+    "application/json",
+    "text/plain"
+  ],
+  "skills": [
+    {
+      "id": "query-profile",
+      "name": "Query Developer Profile",
+      "description": "Retrieve comprehensive developer background, biography, career focus, and professional philosophy for Momin Mohammed Arfat.",
+      "tags": [
+        "profile",
+        "biography",
+        "developer",
+        "about"
+      ],
+      "examples": [
+        "Who is Momin Mohammed Arfat?",
+        "Summarize Arfat's software development experience."
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    },
+    {
+      "id": "list-projects",
+      "name": "List Portfolio Projects",
+      "description": "Discover full-stack web applications, SaaS platforms, and AI engineering projects built by Arfat, with repository links and live URLs.",
+      "tags": [
+        "projects",
+        "portfolio",
+        "saas",
+        "fullstack",
+        "ai"
+      ],
+      "examples": [
+        "What web applications has Arfat built?",
+        "List all featured portfolio projects and their tech stacks."
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    },
+    {
+      "id": "query-skills",
+      "name": "Query Technical Skills",
+      "description": "Query technical proficiencies across frontend, backend, databases, AI/LLM integrations, and DevOps.",
+      "tags": [
+        "skills",
+        "tech-stack",
+        "typescript",
+        "react",
+        "nextjs",
+        "postgresql"
+      ],
+      "examples": [
+        "What technologies does Arfat work with?",
+        "Does Arfat have experience with Next.js and PostgreSQL?"
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    },
+    {
+      "id": "get-contact-info",
+      "name": "Get Contact Information",
+      "description": "Retrieve developer contact channels including verified email, LinkedIn, and GitHub profiles.",
+      "tags": [
+        "contact",
+        "email",
+        "socials",
+        "hire"
+      ],
+      "examples": [
+        "How can I get in touch with Arfat?",
+        "Provide Arfat's professional contact info and GitHub link."
+      ],
+      "inputModes": [
+        "application/json",
+        "text/plain"
+      ],
+      "outputModes": [
+        "application/json",
+        "text/plain"
+      ]
+    }
+  ]
+}

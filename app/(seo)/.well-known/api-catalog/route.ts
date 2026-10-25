@@ -23,6 +23,13 @@ export function GET() {
             title: "ARD Agentic Resource Discovery Manifest",
           },
         ],
+        "agent-card": [
+          {
+            href: `${siteUrl}/.well-known/agent-card.json`,
+            type: "application/json",
+            title: "A2A Agent Card (A2A Protocol Discovery)",
+          },
+        ],
         "mcp-server-card": [
           {
             href: `${siteUrl}/.well-known/mcp/server-card.json`,
@@ -102,6 +109,7 @@ export function GET() {
 
   const linkHeader = [
     '</.well-known/api-catalog>; rel="api-catalog"',
+    '</.well-known/agent-card.json>; rel="agent-card"',
     '</.well-known/ai-catalog.json>; rel="ai-catalog"',
     '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
     '</.well-known/agent-skills/index.json>; rel="agent-skills"',

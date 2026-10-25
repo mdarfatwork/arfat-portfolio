@@ -35,6 +35,7 @@ ${profile.aboutIntro}
 ## Optional
 
 - [Full profile for LLMs](${siteUrl}/llms-full.txt): Extended biography, projects, and experience
+- [A2A Agent Card](${siteUrl}/.well-known/agent-card.json): Agent-to-Agent (A2A) protocol discovery card
 - [ARD AI Catalog](${siteUrl}/.well-known/ai-catalog.json): Agentic Resource Discovery manifest
 - [MCP Server Card](${siteUrl}/.well-known/mcp/server-card.json): Model Context Protocol server metadata (SEP-1649)
 - [Agent Skills Index](${siteUrl}/.well-known/agent-skills/index.json): Agent Skills Discovery RFC v0.2.0 index

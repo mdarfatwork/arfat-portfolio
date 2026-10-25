@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const linkHeaders = [
   '</.well-known/api-catalog>; rel="api-catalog"',
+  '</.well-known/agent-card.json>; rel="agent-card"',
   '</.well-known/ai-catalog.json>; rel="ai-catalog"',
   '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
   '</.well-known/agent-skills/index.json>; rel="agent-skills"',
