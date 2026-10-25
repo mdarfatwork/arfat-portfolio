@@ -30,6 +30,13 @@ export function GET() {
             title: "A2A Agent Card (A2A Protocol Discovery)",
           },
         ],
+        poppy: [
+          {
+            href: `${siteUrl}/.well-known/poppy.json`,
+            type: "application/json",
+            title: "Personal Agent Protocol (Poppy) Discovery Manifest",
+          },
+        ],
         "mcp-server-card": [
           {
             href: `${siteUrl}/.well-known/mcp/server-card.json`,
@@ -109,6 +116,7 @@ export function GET() {
 
   const linkHeader = [
     '</.well-known/api-catalog>; rel="api-catalog"',
+    '</.well-known/poppy.json>; rel="poppy"',
     '</.well-known/agent-card.json>; rel="agent-card"',
     '</.well-known/ai-catalog.json>; rel="ai-catalog"',
     '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',

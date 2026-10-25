@@ -4,6 +4,8 @@ export const dynamic = "force-static";
 
 const LINK_HEADER = [
   '</.well-known/jwks.json>; rel="jwks"',
+  '</.well-known/poppy.json>; rel="poppy"',
+  '</.well-known/agent-card.json>; rel="agent-card"',
   '</auth.md>; rel="describedby"; type="text/markdown"',
   '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"',
   '</.well-known/openid-configuration>; rel="openid-configuration"',

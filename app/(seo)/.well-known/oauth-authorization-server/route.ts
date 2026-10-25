@@ -1,9 +1,12 @@
+import { NextRequest } from "next/server";
 import { getOAuthAuthorizationServerMetadata } from "@/lib/oauth-discovery";
 
-export const dynamic = "force-static";
+export const dynamic = "force-dynamic";
 
 const LINK_HEADER = [
   '</.well-known/oauth-authorization-server>; rel="oauth-authorization-server"',
+  '</.well-known/poppy.json>; rel="poppy"',
+  '</.well-known/agent-card.json>; rel="agent-card"',
   '</auth.md>; rel="describedby"; type="text/markdown"',
   '</.well-known/oauth-protected-resource>; rel="oauth-protected-resource"',
   '</.well-known/openid-configuration>; rel="openid-configuration"',
@@ -25,8 +28,9 @@ const COMMON_HEADERS = {
   "Link": LINK_HEADER,
 };
 
-export function GET() {
-  const metadata = getOAuthAuthorizationServerMetadata();
+export function GET(request: NextRequest) {
+  const hostHeader = request.headers.get("x-forwarded-host") || request.headers.get("host");
+  const metadata = getOAuthAuthorizationServerMetadata(hostHeader);
 
   return new Response(JSON.stringify(metadata, null, 2), {
     status: 200,

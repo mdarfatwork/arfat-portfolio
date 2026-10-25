@@ -5,6 +5,7 @@ import { getPortfolioAssistantSkillMd } from "@/lib/agent-discovery";
 
 const LINK_HEADERS = [
   '</.well-known/api-catalog>; rel="api-catalog"',
+  '</.well-known/poppy.json>; rel="poppy"',
   '</.well-known/agent-card.json>; rel="agent-card"',
   '</.well-known/ai-catalog.json>; rel="ai-catalog"',
   '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',

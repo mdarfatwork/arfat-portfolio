@@ -1,0 +1,35 @@
+{
+  "protocol_version": "0.1",
+  "organization": {
+    "name": "Momin Mohammed Arfat",
+    "domain": "arfat.is-a.dev"
+  },
+  "auth": {
+    "issuer": "https://arfat.is-a.dev"
+  },
+  "web": {},
+  "apis": [
+    {
+      "type": "openapi",
+      "url": "https://arfat.is-a.dev/.well-known/api-catalog",
+      "description": "Developer portfolio APIs and discovery catalogs"
+    },
+    {
+      "type": "mcp",
+      "url": "https://arfat.is-a.dev/.well-known/mcp/server-card.json",
+      "description": "Model Context Protocol server for portfolio tools and resources"
+    }
+  ],
+  "agent": {
+    "protocols": [
+      {
+        "type": "poppy",
+        "endpoint": "https://arfat.is-a.dev/api/poppy/conversations"
+      },
+      {
+        "type": "a2a",
+        "endpoint": "https://arfat.is-a.dev/api/a2a"
+      }
+    ]
+  }
+}

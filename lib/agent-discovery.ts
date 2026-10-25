@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { profile } from "@/data/profile";
 import { getSiteUrl } from "@/lib/site";
+import { resolvePoppyDomain } from "@/lib/oauth-discovery";
 
 function getDomain(url: string): string {
   try {
@@ -38,6 +39,7 @@ This skill allows AI agents to interact with **${profile.name}**'s developer por
 - **LLM Summary**: \`${siteUrl}/llms.txt\`
 - **LLM Full Profile**: \`${siteUrl}/llms-full.txt\`
 - **A2A Agent Card**: \`${siteUrl}/.well-known/agent-card.json\`
+- **Poppy Manifest**: \`${siteUrl}/.well-known/poppy.json\`
 - **MCP Server Card**: \`${siteUrl}/.well-known/mcp/server-card.json\`
 - **AI Catalog**: \`${siteUrl}/.well-known/ai-catalog.json\`
 - **API Catalog**: \`${siteUrl}/.well-known/api-catalog\`
@@ -250,6 +252,17 @@ export function getAiCatalog() {
           "discover arfat a2a agent",
         ],
       },
+      {
+        identifier: `urn:air:${domain}:poppy:manifest`,
+        displayName: "Personal Agent Protocol (Poppy) Discovery Manifest",
+        type: "application/json",
+        url: `${siteUrl}/.well-known/poppy.json`,
+        representativeQueries: [
+          "poppy protocol",
+          "personal agent protocol",
+          "poppy manifest",
+        ],
+      },
     ],
   };
 }
@@ -352,3 +365,50 @@ export function getA2aAgentCard() {
     ],
   };
 }
+
+/**
+ * Generates the Personal Agent Protocol (Poppy) discovery document (Draft 0.1).
+ * @see https://personalagentprotocol.org/docs/spec#3-discovery
+ * @see https://isitagentready.com/.well-known/agent-skills/personal-agent-protocol/SKILL.md
+ */
+export function getPoppyManifest(hostHeader?: string | null) {
+  const siteUrl = getSiteUrl();
+  const domain = resolvePoppyDomain(hostHeader);
+
+  return {
+    protocol_version: "0.1",
+    organization: {
+      name: profile.name,
+      domain: domain,
+    },
+    auth: {
+      issuer: siteUrl,
+    },
+    web: {},
+    apis: [
+      {
+        type: "openapi",
+        url: `${siteUrl}/.well-known/api-catalog`,
+        description: "Developer portfolio APIs and discovery catalogs",
+      },
+      {
+        type: "mcp",
+        url: `${siteUrl}/.well-known/mcp/server-card.json`,
+        description: "Model Context Protocol server for portfolio tools and resources",
+      },
+    ],
+    agent: {
+      protocols: [
+        {
+          type: "poppy",
+          endpoint: `${siteUrl}/api/poppy/conversations`,
+        },
+        {
+          type: "a2a",
+          endpoint: `${siteUrl}/api/a2a`,
+        },
+      ],
+    },
+  };
+}
+

@@ -68,6 +68,7 @@ export interface OAuthAuthorizationServerMetadata {
   jwks_uri: string;
   registration_endpoint?: string;
   revocation_endpoint?: string;
+  device_authorization_endpoint?: string;
   introspection_endpoint?: string;
   scopes_supported: string[];
   response_types_supported: string[];
@@ -81,6 +82,8 @@ export interface OAuthAuthorizationServerMetadata {
   resource?: string;
   authorization_servers?: string[];
   bearer_methods_supported?: string[];
+  poppy_domains?: string[];
+  protected_resources?: string[];
 }
 
 /**
@@ -154,15 +157,54 @@ export function getOpenIdConfiguration(): OpenIdConfiguration {
 }
 
 /**
- * Generates RFC 8414 OAuth 2.0 Authorization Server discovery metadata with Auth.md agent_auth block.
+ * Resolves the domain for Personal Agent Protocol (Poppy) manifests,
+ * matching the requested hostname and ignoring leading 'www.'.
  */
-export function getOAuthAuthorizationServerMetadata(): OAuthAuthorizationServerMetadata {
+export function resolvePoppyDomain(hostHeader?: string | null): string {
   const siteUrl = getSiteUrl();
+  let configuredDomain = "arfat.is-a.dev";
+  try {
+    configuredDomain = new URL(siteUrl).hostname;
+  } catch {
+    configuredDomain = process.env.NEXT_PUBLIC_SITE_URL || "arfat.is-a.dev";
+  }
+
+  if (!hostHeader) return configuredDomain.replace(/^www\./, "");
+  const cleanHost = hostHeader.split(":")[0].toLowerCase().trim();
+  if (!cleanHost || cleanHost === "localhost" || cleanHost === "127.0.0.1") {
+    return configuredDomain.replace(/^www\./, "");
+  }
+  return cleanHost.replace(/^www\./, "");
+}
+
+/**
+ * Generates RFC 8414 OAuth 2.0 Authorization Server discovery metadata with Auth.md agent_auth block and Poppy binding.
+ */
+export function getOAuthAuthorizationServerMetadata(hostHeader?: string | null): OAuthAuthorizationServerMetadata {
+  const siteUrl = getSiteUrl();
+  const domain = resolvePoppyDomain(hostHeader);
+  const configuredDomain = resolvePoppyDomain(null);
+
+  const domains = Array.from(new Set([
+    domain,
+    `www.${domain}`,
+    configuredDomain,
+    `www.${configuredDomain}`,
+    "arfat.is-a.dev",
+  ]));
+
+  const resources = Array.from(new Set([
+    siteUrl,
+    `https://${domain}`,
+    `https://${configuredDomain}`,
+  ]));
 
   return {
     resource: siteUrl,
     authorization_servers: [siteUrl],
-    scopes_supported: ["openid", "profile", "email", "read", "write"],
+    protected_resources: resources,
+    poppy_domains: domains,
+    scopes_supported: ["openid", "profile", "email", "read", "write", "poppy:read", "poppy:write"],
     bearer_methods_supported: ["header"],
     issuer: siteUrl,
     authorization_endpoint: `${siteUrl}/api/auth/authorize`,
@@ -170,6 +212,7 @@ export function getOAuthAuthorizationServerMetadata(): OAuthAuthorizationServerM
     jwks_uri: `${siteUrl}/.well-known/jwks.json`,
     registration_endpoint: `${siteUrl}/api/auth/register`,
     revocation_endpoint: `${siteUrl}/api/auth/revoke`,
+    device_authorization_endpoint: `${siteUrl}/api/auth/device`,
     introspection_endpoint: `${siteUrl}/api/auth/introspect`,
     response_types_supported: ["code", "token"],
     response_modes_supported: ["query", "fragment"],
@@ -177,6 +220,7 @@ export function getOAuthAuthorizationServerMetadata(): OAuthAuthorizationServerM
       "authorization_code",
       "client_credentials",
       "refresh_token",
+      "urn:ietf:params:oauth:grant-type:device_code",
       "urn:ietf:params:oauth:grant-type:jwt-bearer",
       "urn:ietf:params:oauth:grant-type:token-exchange",
       "urn:workos:agent-auth:grant-type:claim",

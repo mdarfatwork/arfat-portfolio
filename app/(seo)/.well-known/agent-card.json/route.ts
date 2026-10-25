@@ -4,6 +4,7 @@ export const dynamic = "force-static";
 
 const LINK_HEADER = [
   '</.well-known/agent-card.json>; rel="agent-card"',
+  '</.well-known/poppy.json>; rel="poppy"',
   '</.well-known/ai-catalog.json>; rel="ai-catalog"',
   '</.well-known/mcp/server-card.json>; rel="mcp-server-card"',
   '</.well-known/agent-skills/index.json>; rel="agent-skills"',
