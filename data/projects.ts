@@ -68,7 +68,7 @@ export const projects: Project[] = [
       "Car auction and management platform with vehicle exchange workflows, invoice systems, and business operations.",
     tags: ["Noorisys", "Client Work", "Live Project"],
     live: true,
-    liveUrl: "http://car.techtrial.work/",
+    liveUrl: "https://ab-sidy.techtrial.work/",
     image: "/assets/projects/ab-sidy.webp",
     initials: "AB",
     context: "Noorisys Technologies",
@@ -81,6 +81,40 @@ export const projects: Project[] = [
       "Production feature development",
     ],
     technologies: ["Next.js", "TypeScript", "React", "REST APIs"],
+  },
+  
+  {
+    id: "dentassist-ai",
+    title: "DentAssist AI",
+    description:
+      "AI-powered dental receptionist SaaS that answers patient questions using clinic-specific knowledge and helps schedule appointments through Google Calendar.",
+    tags: ["AI", "Full Stack", "SaaS", "Live Project"],
+    live: true,
+    liveUrl: "https://dentassist-care.vercel.app/",
+    image: "/assets/projects/dentassist-care.webp",
+    initials: "DA",
+    context: "Personal Project",
+    details:
+      "DentAssist AI is a multi-tenant SaaS platform designed to help dental practices automate routine patient enquiries and appointment scheduling. It combines a clinic-specific AI chatbot with retrieval-augmented generation (RAG), a configurable knowledge base, and Google Calendar integration to help patients find information and schedule appointments.",
+    features: [
+      "Clinic-specific AI chatbot with RAG",
+      "Knowledge base with document uploads",
+      "Google Calendar appointment scheduling",
+      "Multi-tenant architecture with clinic data isolation",
+      "Practice, practitioner, service, and working-hours configuration",
+    ],
+    technologies: [
+      "Next.js",
+      "TypeScript",
+      "React",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "PostgreSQL",
+      "Prisma",
+      "Better Auth",
+      "Pinecone",
+      "Google Calendar API",
+    ],
   },
 
   {
